@@ -9,3 +9,4 @@ cd Testassignment
 mvn clean package
 
 Just adding this line to test job_pop_timeschedule
+Just adding this line to test job_gitworkspace_wogit
