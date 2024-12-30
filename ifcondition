@@ -1,0 +1,9 @@
+Sample file used if condition:
+ls
+if [ -d Testassignment ]
+then
+ rm -rf *
+fi
+git clone https://github.com/adurikedharnadh/Testassignment.git
+cd Testassignment
+mvn clean package
