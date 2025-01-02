@@ -14,7 +14,6 @@ pipeline
         stage('Test') {
             agent {label "slave"}
             steps {
-               sh 'cd Testassignment'
                sh 'mvn clean install'
             }
         }
