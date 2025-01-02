@@ -21,10 +21,10 @@ pipeline
         {
             agent {label "slave"}
             steps {
-                sh 'cd target'
+                
                 sh 'ls'
                 sh 'pwd'
-                sh 'cp hello-world-war-1.0.0.war /opt/apache-tomcat-10.1.34/webapps/'
+                sh 'cp /opt/jenkins/workspace/job_new2/target/hello-world-war-1.0.0.war /opt/apache-tomcat-10.1.34/webapps/hello-world-war-1.0.0.war'
             }
         }
     }
