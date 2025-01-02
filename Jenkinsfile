@@ -6,8 +6,8 @@ pipeline
             agent {label "slave"}
             steps
             {
+                sh 'rm -rf Testassignment'
              sh 'git clone https://github.com/adurikedharnadh/Testassignment.git'
-                
             }
             
         }
