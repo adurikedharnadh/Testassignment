@@ -1,17 +1,30 @@
-pipeline {
-    agent { label 'slave' }
+pipeline
+{
+    agent any
     stages {
-        stage('checkout') {
-            steps {
-                sh 'rm -rf Testassignment'
-                sh 'git clone https://github.com/adurikedharnadh/Testassignment.git'
+        stage('Build') {
+            agent {label "slave"}
+            steps
+            {
+             git clone https://github.com/adurikedharnadh/Testassignment.git
+                
             }
-        } 
-       stage('build') {
+            
+        }
+        stage('Test') {
+            agent {label "slave"}
             steps {
-                sh 'cd Testassignment'
-                sh 'mvn clean package'
+               cd Testassignment
+               mvn clean install
             }
         }
-}
-}
+        stage('Deploy') 
+        {
+            agent {label "slave"}
+            steps {
+                cd target
+                cp hello-world-war-1.0.0.war /opt/apache-tomcat-10.1.34/webapps/hello-world-war-1.0.0.war
+            }
+        }
+    }
+}    
