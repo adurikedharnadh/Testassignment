@@ -1,34 +1,25 @@
-pipeline
-{
-    agent any
+pipeline {
+    agent { label 'slave-1' }
     stages {
-        stage('Build') {
-            agent {label "slave"}
-            steps
-            {
-                sh 'rm -rf Testassignment'
-             sh 'git clone https://github.com/adurikedharnadh/Testassignment.git'
-            }
-            
-        }
-        stage('Test') {
-            agent {label "slave"}
+        stage('checkout') {
             steps {
-               sh 'mvn clean install'
+                sh 'rm -rf hello-world-war'
+                sh 'git clone https://github.com/shrikantashetty/hello-world-war.git'
             }
-        }
-        stage('Deploy') 
-        {
-            agent {label "slave"}
+        } 
+       stage('build') {
             steps {
-                
-                sh 'ls'
-                sh 'pwd'
-                sh 'cp /opt/jenkins/workspace/job_new2/target/hello-world-war-1.0.0.war /opt/apache-tomcat-10.1.34/webapps/hello-world-war-1.0.0.war'
+                sh 'cd hello-world-war'
+                sh 'mvn clean package'
             }
         }
+      stage('deploy') {
+           steps {
+             sh 'cp /opt/jenkins/workspace/job_new2/target/hello-world-war-1.0.0.war /opt/apache-tomcat-10.1.34/webapps/hello-world-war-1.0.0.war'
+               }
+          }
     }
-        post {
+post {
     success {
         mail to: "adurikedharnadh@gmail.com",
              subject: "Jenkins Job Success",
@@ -39,6 +30,5 @@ pipeline
              subject: "Jenkins Job Failed",
              body: "The Jenkins job failed. Check the logs for details."
     }
-
-    }
+}
 }
